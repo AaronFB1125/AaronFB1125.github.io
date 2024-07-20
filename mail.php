@@ -1,14 +1,15 @@
 <?php
 
 $method = $_SERVER['REQUEST_METHOD'];
+$admin_email = "ahuapaya.contacto@gmail.com"; // Correo al que llegarán los mensajes
+$form_subject = "Solicitud de un nuevo trabajo"; // Asunto del correo
 
 //Script Foreach
 $c = true;
+$message = ''; // Inicializa la variable $message
 if ( $method === 'POST' ) {
 
 	$project_name = trim($_POST["project_name"]);
-	$admin_email  = trim($_POST["admin_email"]);
-	$form_subject = trim($_POST["form_subject"]);
 
 	foreach ( $_POST as $key => $value ) {
 		if ( $value != "" && $key != "project_name" && $key != "admin_email" && $key != "form_subject" ) {
@@ -23,8 +24,6 @@ if ( $method === 'POST' ) {
 } else if ( $method === 'GET' ) {
 
 	$project_name = trim($_GET["project_name"]);
-	$admin_email  = trim($_GET["admin_email"]);
-	$form_subject = trim($_GET["form_subject"]);
 
 	foreach ( $_GET as $key => $value ) {
 		if ( $value != "" && $key != "project_name" && $key != "admin_email" && $key != "form_subject" ) {
@@ -50,3 +49,5 @@ $headers = "MIME-Version: 1.0" . PHP_EOL .
 'Reply-To: '.$admin_email.'' . PHP_EOL;
 
 mail($admin_email, adopt($form_subject), $message, $headers );
+
+?>
